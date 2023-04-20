@@ -1,0 +1,55 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ChatApplication extends JFrame {
+private JTextArea chatArea;
+private JTextField messageField;
+private JButton sendButton;
+
+public ChatApplication() {
+super("Chat Application");
+
+// Create GUI components
+chatArea = new JTextArea(20, 40);
+chatArea.setEditable(false);
+JScrollPane chatScrollPane = new JScrollPane(chatArea);
+messageField = new JTextField(30);
+sendButton = new JButton("Send");
+
+// Add components to content pane
+JPanel contentPane = new JPanel();
+contentPane.setLayout(new BorderLayout());
+contentPane.add(chatScrollPane, BorderLayout.CENTER);
+JPanel inputPanel = new JPanel();
+inputPanel.add(messageField);
+inputPanel.add(sendButton);
+contentPane.add(inputPanel, BorderLayout.SOUTH);
+setContentPane(contentPane);
+
+// Add action listener for send button
+sendButton.addActionListener(new ActionListener() {
+@Override
+public void actionPerformed(ActionEvent e) {
+String message = messageField.getText();
+sendMessage(message);
+messageField.setText("");
+}
+});
+
+// Set window properties
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+pack();
+setLocationRelativeTo(null);
+setVisible(true);
+}
+
+private void sendMessage(String message) {
+// Implement sending message to server
+chatArea.append(message + "\n");
+}
+
+public static void main(String[] args) {
+new ChatApplication();
+}
+}
